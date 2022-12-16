@@ -3,5 +3,8 @@
     "node-fetch": "^2.6.7",
     "rocket-league-apis-client": "^0.2.7",
     "tmi.js": "^1.8.5"
+  },
+  "scripts": {
+    "start": "node bot.js"
   }
 }
