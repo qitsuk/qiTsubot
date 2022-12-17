@@ -4,6 +4,20 @@ const tracker = require("rocket-league-apis-client");
 const fs = require("fs");
 require('dotenv').config();
 
+const http = require('http');
+
+const port = 8080;
+
+const server = http.createServer((req, res) => {
+  res.end('Hello world!')
+});
+
+server.listen(port, () => {
+  console.log(`Listening on port ${port}`);
+});
+
+
+
 let safe = true;
 let single;
 let twopart;
