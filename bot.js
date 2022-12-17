@@ -2,6 +2,7 @@ const tmi = require("tmi.js");
 const fetch = require("node-fetch");
 const tracker = require("rocket-league-apis-client");
 const fs = require("fs");
+require('dotenv').config();
 
 let safe = true;
 let single;
@@ -27,7 +28,7 @@ const client = new tmi.Client({
   options: { debug: true },
   identity: {
     username: "qiTsuBot",
-    password: "oauth:2m6pgaf5ijl29e5qdjya6sqacius0x",
+    password: process.env.OAUTH,
   },
   channels: ["qitsuk"],
 });
@@ -142,6 +143,10 @@ client.on("message", async (channel, tags, message, self) => {
     }
   }
 
+  if (command === "test") {
+    await getStats(await getToken());
+  }
+
 });
 
 
@@ -156,8 +161,8 @@ async function getValoRank() {
 async function getToken() {
   let url = "https://id.twitch.tv/oauth2/token";
   let params = new URLSearchParams();
-  params.set("client_id", "p3gjm6dy960xzpb9u2uh7xeu8u7910");
-  params.set("client_secret", "n78ccowvi5das8ri387983h4aack5i");
+  params.set("client_id", process.env.CLIENT_ID);
+  params.set("client_secret", process.env.CLIENT_SECRET);
   params.set("grant_type", "client_credentials");
   let options = {
     method: "POST",
@@ -177,7 +182,7 @@ async function getStats(token) {
   let url = `https://api.twitch.tv/helix/videos?user_id=${my_channel_id}`;
   let options = {
     headers: {
-      "Client-ID": "p3gjm6dy960xzpb9u2uh7xeu8u7910",
+      "Client-ID": process.env.CLIENT_ID,
       Authorization: `Bearer ${token}`,
     },
   };
@@ -228,7 +233,6 @@ function getAge() {
 }
 
 async function getJoke() {
-  console.log("FUNCTION GETJOKE CALLED!");
   let response = await fetch('https://v2.jokeapi.dev/joke/Any?type=twopart');
   let data = await response.json();
 

@@ -1,0 +1,5 @@
+.vercel
+*.bat
+*.ink
+.env
+node_modules/
